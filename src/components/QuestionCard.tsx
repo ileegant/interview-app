@@ -21,7 +21,7 @@ export const QuestionCard = ({ data, onToggle, onDelete }: Props) => {
           : "bg-white border-slate-200 shadow-sm"
       }`}
     >
-      <div className="flex justify-between items-start">
+      <div className="flex flex-col justify-between items-start">
         <div className="flex-1">
           <span
             className={`text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm border ${
@@ -46,20 +46,20 @@ export const QuestionCard = ({ data, onToggle, onDelete }: Props) => {
             {data.answer}
           </div>
         </div>
-        <div className="flex flex-col gap-2 ml-4">
+        <div className="flex gap-2 mt-4">
           <button
             onClick={() => onToggle(data.id)}
-            className={`w-20 h-10 rounded-sm flex items-center justify-center ${
+            className={`w-24 h-8 rounded-sm flex items-center justify-center cursor-pointer ${
               data.isLearned
-                ? "bg-emerald-500 text-white shadow-lg shadow-amber-100"
-                : "bg-slate-100 text-slate-400 hover:bg-blue-500 hower:text-white"
+                ? "bg-blue-500 text-white shadow-lg shadow-amber-100"
+                : "bg-slate-100 text-slate-400 hover:bg-emerald-500 hover:text-white"
             }`}
           >
-            {data.isLearned ? "Done" : "To Learn"}
+            {data.isLearned ? "To Learn" : "Mastered"}
           </button>
           <button
             onClick={() => onDelete(data.id)}
-            className="w-20 h-10 rounded-sm flex items-center justify-center text-slate-300 hover:bg-rose-50 hover:text-rose-500"
+            className="w-18 h-8 flex rounded-sm items-center justify-center cursor-pointer border text-rose-300 hover:text-rose-500"
           >
             Delete
           </button>
