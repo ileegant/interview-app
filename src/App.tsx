@@ -98,7 +98,21 @@ function App() {
 
         <AddQuestionForm onAdd={handleAddQuestion} />
 
-        <div className="space-y-4 mt-8">
+        <div className="space-y-4 mt-14">
+          <div className="flex gap-2">
+            <button className="text-sm text-slate-400 border border-slate-300 hover:text-slate-50 hover:bg-slate-900 hover:border-slate-700 px-4 py-1 rounded-lg cursor-pointer">
+              Mastered
+            </button>
+            <button className="text-sm text-slate-400 border border-slate-300 hover:text-slate-50 hover:bg-slate-900 hover:border-slate-700 px-4 py-1 rounded-lg cursor-pointer">
+              To Learn
+            </button>
+            <option
+              value="sadas"
+              className="text-sm text-slate-400 border border-slate-300 hover:text-slate-50 hover:bg-slate-900 hover:border-slate-700 px-4 py-1 rounded-lg cursor-pointer"
+            >
+              {"EASY >"}
+            </option>
+          </div>
           {questions.length === 0 ? (
             <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-3xl">
               <p className="text-slate-400">
