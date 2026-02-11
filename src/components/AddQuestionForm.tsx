@@ -35,36 +35,46 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add new QA to Interview:</h2>
+    <form
+      onSubmit={handleSubmit}
+      className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col gap-4 shadow-inner"
+    >
+      <h2 className="text-xl font-bold text-slate-800">New Question</h2>
 
       <input
-        type="text"
-        placeholder="Question..."
+        className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
+        placeholder="Question text..."
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
       />
 
       <textarea
+        className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none min-h-25"
         placeholder="Answer..."
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
       />
 
-      <select
-        value={difficulty}
-        onChange={(e) =>
-          setDifficulty(e.target.value as IQuestion["difficulty"])
-        }
-      >
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
+      <div className="flex gap-4">
+        <select
+          className="flex-1 p-3 rounded-lg border border-slate-300 bg-white"
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value as any)}
+        >
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
 
-      {error && <p style={{ color: "red", fontSize: "14px" }}>{error}</p>}
+        <button
+          type="submit"
+          className="flex-2 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 active:scale-95 transition-all shadow-lg shadow-blue-200"
+        >
+          Add Question
+        </button>
+      </div>
 
-      <button type="submit">Add QA to interview</button>
+      {error && <p className="text-rose-500 text-sm font-medium">{error}</p>}
     </form>
   );
 };
