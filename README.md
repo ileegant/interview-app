@@ -1,28 +1,21 @@
 QA Interview App 🚀
 
-    Level up your programming knowledge and crush your next Senior Developer interview.
+Level up your programming knowledge and crush your next Senior Developer interview.
 
 ✨ Features
 
-    Smart Progress Tracking – Visual progress bar to see how close you are to mastery.
-
-    Multi-level Difficulty – Filter questions by Easy, Medium, or Hard.
-
-    Dynamic Filtering – Instantly find questions you haven't mastered yet.
-
-    Safe Data Entry – Powered by Zod for schema validation (no more broken data).
-
-    Local Persistence – Your progress is automatically saved to localStorage.
+Smart Progress Tracking – Visual progress bar to see how close you are to mastery.
+Multi-level Difficulty – Filter questions by Easy, Medium, or Hard.
+Dynamic Filtering – Instantly find questions you haven't mastered yet.
+Safe Data Entry – Powered by Zod for schema validation (no more broken data).
+Local Persistence – Your progress is automatically saved to localStorage.
 
 🛠️ Tech Stack
 
-    Core: React 18 + TypeScript
-
-    Bundler: Vite
-
-    Styling: Tailwind CSS v4 (Engineered for performance)
-
-    Validation: Zod (Runtime type safety)
+Core: React 18 + TypeScript
+Bundler: Vite
+Styling: Tailwind CSS v4 (Engineered for performance)
+Validation: Zod (Runtime type safety)
 
 🚀 Quick Start
 
@@ -34,8 +27,7 @@ Install dependencies:
 
     npm install
 
-    Run development server:
-    Bash
+Run development server:
 
     npm run dev
 
@@ -64,9 +56,8 @@ isLearned: z.boolean()
 
 📸 UI Preview
 
-    Modern Cards: Glassmorphism-inspired design with hover effects.
-
-    Empty States: Intuitive feedback when no data matches your filters.
+Modern Cards: Glassmorphism-inspired design with hover effects.
+Empty States: Intuitive feedback when no data matches your filters.
 
 🤝 Contributing
 
