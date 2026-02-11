@@ -1,73 +1,77 @@
-# React + TypeScript + Vite
+QA Interview App 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+    Level up your programming knowledge and crush your next Senior Developer interview.
 
-Currently, two official plugins are available:
+✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    Smart Progress Tracking – Visual progress bar to see how close you are to mastery.
 
-## React Compiler
+    Multi-level Difficulty – Filter questions by Easy, Medium, or Hard.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+    Dynamic Filtering – Instantly find questions you haven't mastered yet.
 
-## Expanding the ESLint configuration
+    Safe Data Entry – Powered by Zod for schema validation (no more broken data).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+    Local Persistence – Your progress is automatically saved to localStorage.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+    Core: React 18 + TypeScript
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    Bundler: Vite
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+    Styling: Tailwind CSS v4 (Engineered for performance)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    Validation: Zod (Runtime type safety)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🚀 Quick Start
+
+    Clone the repo:
+    Bash
+
+    git clone https://github.com/ileegant/interview-app.git
+
+    Install dependencies:
+    Bash
+
+    npm install
+
+    Run development server:
+    Bash
+
+    npm run dev
+
+📂 Project Structure
+Plaintext
+
+src/
+├── components/ # Atomic UI components (QuestionCard, Form, etc.)
+├── data/ # Seed files & initial interview questions
+├── types/ # Zod schemas & TypeScript interfaces
+├── App.tsx # Main logic & State management
+└── main.tsx # Entry point
+
+🛡️ Data Validation
+
+We use Zod to ensure every question added to the list meets our strict quality standards:
+TypeScript
+
+export const QuestionSchema = z.object({
+id: z.string().uuid(),
+question: z.string().min(5, "Question is too short"),
+answer: z.string().min(10, "Provide a more detailed answer"),
+difficulty: z.enum(["easy", "medium", "hard"]),
+isLearned: z.boolean()
+});
+
+📸 UI Preview
+
+    Modern Cards: Glassmorphism-inspired design with hover effects.
+
+    Empty States: Intuitive feedback when no data matches your filters.
+
+🤝 Contributing
+
+Feel free to fork this repo and add your own tricky TypeScript questions!
+
+Created with ❤️ for the Ukrainian Dev Community.
