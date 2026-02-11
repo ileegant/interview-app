@@ -57,9 +57,9 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         <div className="mb-10 text-center">
-          <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
+          <h1 className="text-6xl font-extrabold text-slate-900 tracking-tight mb-2">
             QA Interview <span className="text-blue-600">App</span>
           </h1>
           <p className="text-slate-500 mb-6">
