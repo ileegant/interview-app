@@ -51,7 +51,7 @@ export const QuestionCard = ({ data, onToggle, onDelete }: Props) => {
             onClick={() => onToggle(data.id)}
             className={`w-24 h-8 rounded-sm flex items-center justify-center cursor-pointer ${
               data.isLearned
-                ? "bg-blue-500 text-white shadow-lg shadow-amber-100"
+                ? "bg-blue-500 text-white"
                 : "bg-slate-100 text-slate-400 hover:bg-emerald-500 hover:text-white"
             }`}
           >

@@ -26,13 +26,11 @@ QA Interview App 🚀
 
 🚀 Quick Start
 
-    Clone the repo:
-    Bash
+Clone the repo:
 
     git clone https://github.com/ileegant/interview-app.git
 
-    Install dependencies:
-    Bash
+Install dependencies:
 
     npm install
 
