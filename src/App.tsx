@@ -12,6 +12,25 @@ function App() {
     return saved ? JSON.parse(saved) : initialQuestions;
   });
 
+  const [filterDifficulty, setFilterDifficulty] = useState<
+    IQuestion["difficulty"] | "all"
+  >("all");
+  const [filterStatus, setFilterStatus] = useState<
+    "all" | "learned" | "to-learn"
+  >("all");
+
+  const filteredQuestions = questions.filter((q) => {
+    const matchDifficulty =
+      filterDifficulty === "all" || q.difficulty === filterDifficulty;
+    const matchStatus =
+      filterStatus === "all"
+        ? true
+        : filterStatus === "learned"
+        ? q.isLearned
+        : !q.isLearned;
+    return matchDifficulty && matchStatus;
+  });
+
   const learnedCount = questions.filter((q) => q.isLearned).length;
   const totalCount = questions.length;
   const progress =
@@ -99,28 +118,47 @@ function App() {
         <AddQuestionForm onAdd={handleAddQuestion} />
 
         <div className="space-y-4 mt-14">
-          <div className="flex gap-2">
-            <button className="text-sm text-slate-400 border border-slate-300 hover:text-slate-50 hover:bg-slate-900 hover:border-slate-700 px-4 py-1 rounded-lg cursor-pointer">
-              Mastered
-            </button>
-            <button className="text-sm text-slate-400 border border-slate-300 hover:text-slate-50 hover:bg-slate-900 hover:border-slate-700 px-4 py-1 rounded-lg cursor-pointer">
-              To Learn
-            </button>
-            <option
-              value="sadas"
-              className="text-sm text-slate-400 border border-slate-300 hover:text-slate-50 hover:bg-slate-900 hover:border-slate-700 px-4 py-1 rounded-lg cursor-pointer"
+          <h1 className="text-5xl font-bold pb-4">
+            Questions{" "}
+            <span className="text-3xl">({filteredQuestions.length})</span>
+          </h1>
+          <div className="flex gap-4">
+            <div className="flex gap-2">
+              {["all", "easy", "medium", "hard"].map((d) => (
+                <button
+                  key={d}
+                  onClick={() => setFilterDifficulty(d as any)}
+                  className={`px-3 py-1 rounded-lg text-xs font-bold capitalize cursor-pointer ${
+                    filterDifficulty === d
+                      ? "bg-slate-900 text-white shadow-md"
+                      : "text-slate-500 border border-slate-200 hover:border-slate-300"
+                  }`}
+                >
+                  {d}
+                </button>
+              ))}
+            </div>
+
+            <select
+              value={filterStatus}
+              onChange={(e) => setFilterStatus(e.target.value as any)}
+              className="text-xs font-bold text-slate-600 bg-transparent border-none outline-none cursor-pointer hover:text-slate-900 transition-colors"
             >
-              {"EASY >"}
-            </option>
+              <option value="all">Show All</option>
+              <option value="to-learn">To Learn</option>
+              <option value="learned">Mastered</option>
+            </select>
           </div>
-          {questions.length === 0 ? (
+          {questions.length === 0 || filteredQuestions.length === 0 ? (
             <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-3xl">
               <p className="text-slate-400">
-                It's empty here. Time to add your first question!
+                {questions.length === 0
+                  ? "It's empty here. Time to add your first question!"
+                  : "No questions match your filters. Try adjusting them!"}
               </p>
             </div>
           ) : (
-            questions.map((q) => (
+            filteredQuestions.map((q) => (
               <QuestionCard
                 key={q.id}
                 data={q}
