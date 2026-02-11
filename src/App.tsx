@@ -40,10 +40,18 @@ function App() {
   const resetToSeed = () => {
     if (
       window.confirm(
-        "Reset all questions to default? Your current progress will be lost."
+        "Reset all questions to default? Your questions will be lost."
       )
     ) {
       setQuestions(initialQuestions);
+    }
+  };
+
+  const resetProgress = () => {
+    if (
+      window.confirm("Reset all progress? Your current progress will be lost.")
+    ) {
+      setQuestions((prev) => prev.map((q) => ({ ...q, isLearned: false })));
     }
   };
 
@@ -57,12 +65,6 @@ function App() {
           <p className="text-slate-500 mb-6">
             Your path to FullStack Developer
           </p>
-          <button
-            onClick={resetToSeed}
-            className="text-xs text-slate-400 hover:text-slate-600 underline mt-4"
-          >
-            Reset to default questions
-          </button>
 
           <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
             <div className="flex justify-between mb-2 text-sm font-medium text-slate-600">
@@ -76,6 +78,20 @@ function App() {
                 className="bg-blue-600 h-full transition-all duration-500 ease-out"
                 style={{ width: `${progress}%` }}
               />
+            </div>
+            <div className="flex items-center justify-center gap-4 mt-4">
+              <button
+                onClick={resetProgress}
+                className="text-xs text-rose-300 hover:text-rose-500 underline cursor-pointer"
+              >
+                Reset progress
+              </button>
+              <button
+                onClick={resetToSeed}
+                className="text-xs text-rose-300 hover:text-rose-500 underline cursor-pointer"
+              >
+                Reset to default questions
+              </button>
             </div>
           </div>
         </div>
