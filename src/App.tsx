@@ -11,6 +11,11 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const learnedCount = questions.filter((q) => q.isLearned).length;
+  const totalCount = questions.length;
+  const progress =
+    totalCount > 0 ? Math.round((learnedCount / totalCount) * 100) : 0;
+
   useEffect(() => {
     localStorage.setItem(LS_KEY, JSON.stringify(questions));
   }, [questions]);
@@ -38,6 +43,24 @@ function App() {
           <h1 className="text-4xl font-extrabold text-slate-900 tracking-tight mb-2">
             QA Interview <span className="text-blue-600">App</span>
           </h1>
+          <p className="text-slate-500 mb-6">
+            Your path to FullStack Developer
+          </p>
+
+          <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+            <div className="flex justify-between mb-2 text-sm font-medium text-slate-600">
+              <span>Learning Progress:</span>
+              <span>
+                {progress}% ({learnedCount}/{totalCount})
+              </span>
+            </div>
+            <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
+              <div
+                className="bg-blue-600 h-full transition-all duration-500 ease-out"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
         </div>
 
         <AddQuestionForm onAdd={handleAddQuestion} />
