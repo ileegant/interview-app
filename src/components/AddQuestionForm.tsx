@@ -40,17 +40,19 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-slate-50 p-6 rounded-2xl border border-slate-200 flex flex-col gap-4 shadow-inner"
+      className={`bg-slate-50 rounded-2xl border border-slate-200 ${
+        !isFormVisible && "hover:bg-slate-100"
+      } flex flex-col gap-4 shadow-inner`}
     >
-      <div className="flex justify-between">
-        <h2 className="text-xl font-bold text-slate-800">Add New Question</h2>
-        <button type="button" onClick={() => setIsFormVisible(!isFormVisible)}>
+      <button type="button" onClick={() => setIsFormVisible(!isFormVisible)}>
+        <div className="flex justify-between p-6 cursor-pointer">
+          <h2 className="text-xl font-bold text-slate-800">Add New Question</h2>
           {isFormVisible ? "✕" : "+"}
-        </button>
-      </div>
+        </div>
+      </button>
 
       {isFormVisible && (
-        <>
+        <div className="flex flex-col gap-4 px-6 pb-6">
           <input
             className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="Question text..."
@@ -78,16 +80,23 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
 
             <button
               type="submit"
-              className="flex-2 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 active:scale-95 transition-all shadow-lg shadow-blue-200"
+              className="flex-2 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 cursor-pointer"
             >
               Add Question
             </button>
           </div>
 
-          {error && (
-            <p className="text-rose-500 text-sm font-medium">{error}</p>
-          )}
-        </>
+          <div className="flex justify-center pt-2">
+            {error ? (
+              <p className="text-rose-500 text-sm font-medium">{error}</p>
+            ) : (
+              <p className="text-slate-400 text-sm">
+                Tip: Don't just memorize. Try to explain the concept out loud in
+                your own words.
+              </p>
+            )}
+          </div>
+        </div>
       )}
     </form>
   );
