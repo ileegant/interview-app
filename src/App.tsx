@@ -37,6 +37,16 @@ function App() {
     }
   };
 
+  const resetToSeed = () => {
+    if (
+      window.confirm(
+        "Reset all questions to default? Your current progress will be lost."
+      )
+    ) {
+      setQuestions(initialQuestions);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4">
       <div className="max-w-2xl mx-auto">
@@ -47,6 +57,12 @@ function App() {
           <p className="text-slate-500 mb-6">
             Your path to FullStack Developer
           </p>
+          <button
+            onClick={resetToSeed}
+            className="text-xs text-slate-400 hover:text-slate-600 underline mt-4"
+          >
+            Reset to default questions
+          </button>
 
           <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
             <div className="flex justify-between mb-2 text-sm font-medium text-slate-600">
