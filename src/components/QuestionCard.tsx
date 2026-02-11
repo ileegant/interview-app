@@ -2,7 +2,7 @@ import type { IQuestion } from "../types";
 
 interface Props {
   data: IQuestion;
-  onToggle: (id: number) => void;
+  onToggle: (id: string) => void;
 }
 
 export const QuestionCard = ({ data, onToggle }: Props) => {
