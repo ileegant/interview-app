@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import type { IQuestion } from "./types";
 import { QuestionCard } from "./components/QuestionCard";
 import { AddQuestionForm } from "./components/AddQuestionForm";
+import { initialQuestions } from "./data/seed";
 
 const LS_KEY = "interview_prep_questions_v1";
 
 function App() {
   const [questions, setQuestions] = useState<IQuestion[]>(() => {
     const saved = localStorage.getItem(LS_KEY);
-    return saved ? JSON.parse(saved) : [];
+    return saved ? JSON.parse(saved) : initialQuestions;
   });
 
   const learnedCount = questions.filter((q) => q.isLearned).length;
