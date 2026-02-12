@@ -19,6 +19,8 @@ function App() {
     "all" | "learned" | "to-learn"
   >("all");
 
+  const [visibleCount, setVisibleCount] = useState(10);
+
   const filteredQuestions = questions.filter((q) => {
     const matchDifficulty =
       filterDifficulty === "all" || q.difficulty === filterDifficulty;
@@ -158,14 +160,16 @@ function App() {
               </p>
             </div>
           ) : (
-            filteredQuestions.map((q) => (
-              <QuestionCard
-                key={q.id}
-                data={q}
-                onToggle={toggleStatus}
-                onDelete={deleteQuestion}
-              />
-            ))
+            filteredQuestions
+              .slice(0, visibleCount)
+              .map((q) => (
+                <QuestionCard
+                  key={q.id}
+                  data={q}
+                  onToggle={toggleStatus}
+                  onDelete={deleteQuestion}
+                />
+              ))
           )}
         </div>
       </div>
