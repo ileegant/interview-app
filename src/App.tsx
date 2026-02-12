@@ -3,7 +3,7 @@ import type { IQuestion } from "./types";
 import { QuestionCard } from "./components/QuestionCard";
 import { AddQuestionForm } from "./components/AddQuestionForm";
 import { initialQuestions } from "./data/seed";
-import { Loader, Loader2, LoaderCircle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 const LS_KEY = "interview_prep_questions_v1";
 
