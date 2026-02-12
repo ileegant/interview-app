@@ -1,45 +1,40 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { QuestionSchema, type IQuestion } from "../types";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface Props {
   onAdd: (newQuestion: IQuestion) => void;
 }
 
 export const AddQuestionForm = ({ onAdd }: Props) => {
-  const [question, setQuestion] = useState("");
-  const [answer, setAnswer] = useState("");
-  const [difficulty, setDifficulty] = useState<IQuestion["difficulty"]>("easy");
-  const [error, setError] = useState<string | null>("");
-
   const [isFormVisible, setIsFormVisible] = useState(false);
 
-  const handleSubmit = (e: React.SubmitEvent) => {
-    e.preventDefault();
-
-    const validation = QuestionSchema.safeParse({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<IQuestion>({
+    resolver: zodResolver(QuestionSchema),
+    defaultValues: {
       id: crypto.randomUUID(),
-      question,
-      answer,
-      difficulty,
+      question: "",
+      answer: "",
+      difficulty: "easy",
       isLearned: false,
-    });
+    },
+  });
 
-    if (!validation.success) {
-      setError(validation.error.issues[0].message);
-      return;
-    }
-
-    onAdd(validation.data);
-    setQuestion("");
-    setAnswer("");
-    setDifficulty("easy");
-    setError(null);
+  const onSubmit = (data: IQuestion) => {
+    onAdd({ ...data, id: crypto.randomUUID(), isLearned: false });
+    reset();
     setIsFormVisible(false);
   };
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSubmit)}
       className={`bg-slate-50 rounded-2xl border border-slate-200 ${
         !isFormVisible && "hover:bg-slate-100"
       } flex flex-col gap-4 shadow-inner`}
@@ -54,24 +49,21 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
       {isFormVisible && (
         <div className="flex flex-col gap-4 px-6 pb-6">
           <input
+            {...register("question")}
             className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="Question text..."
-            value={question}
-            onChange={(e) => setQuestion(e.target.value)}
           />
 
           <textarea
+            {...register("answer")}
             className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none min-h-25"
             placeholder="Answer..."
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
           />
 
           <div className="flex gap-4">
             <select
+              {...register("difficulty")}
               className="flex-1 p-3 rounded-lg border border-slate-300 bg-white"
-              value={difficulty}
-              onChange={(e) => setDifficulty(e.target.value as any)}
             >
               <option value="easy">Easy</option>
               <option value="medium">Medium</option>
@@ -87,8 +79,10 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
           </div>
 
           <div className="flex justify-center pt-2">
-            {error ? (
-              <p className="text-rose-500 text-sm font-medium">{error}</p>
+            {Object.keys(errors).length > 0 ? (
+              <p className="text-rose-500 text-sm font-medium">
+                {Object.keys(errors)[0]}
+              </p>
             ) : (
               <p className="text-slate-400 text-sm">
                 Tip: Don't just memorize. Try to explain the concept out loud in

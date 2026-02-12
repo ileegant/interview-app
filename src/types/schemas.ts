@@ -5,7 +5,7 @@ export const QuestionSchema = z.object({
   question: z.string().min(10, "Question is to short!"),
   answer: z.string().min(20, "Answer is too short!"),
   difficulty: z.enum(["easy", "medium", "hard"]),
-  isLearned: z.boolean().default(false),
+  isLearned: z.boolean(),
 });
 
 export type IQuestion = z.infer<typeof QuestionSchema>;
