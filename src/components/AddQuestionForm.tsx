@@ -22,6 +22,8 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
       question: "",
       answer: "",
       difficulty: "easy",
+      category: "",
+      subCategory: "",
       isLearned: false,
     },
   });
@@ -59,6 +61,19 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
             className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none min-h-25"
             placeholder="Answer..."
           />
+
+          <div className="flex gap-4">
+            <input
+              {...register("category")}
+              className="flex-1 p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Category (React, TS)"
+            />
+            <input
+              {...register("subCategory")}
+              className="flex-1 p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
+              placeholder="Subcategory..."
+            />
+          </div>
 
           <div className="flex gap-4">
             <select

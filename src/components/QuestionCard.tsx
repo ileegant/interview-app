@@ -23,13 +23,17 @@ export const QuestionCard = ({ data, onToggle, onDelete }: Props) => {
     >
       <div className="flex flex-col justify-between items-start">
         <div className="flex-1">
-          <span
-            className={`text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded-sm border ${
-              diffColors[data.difficulty]
-            }`}
-          >
-            {data.difficulty}
-          </span>
+          <div className="flex gap-2 items-center">
+            <span className="text-slate-500 font-bold">{data.category}</span>
+            <span className="text-sm text-slate-500">{data.subCategory}</span>
+            <span
+              className={`text-xs font-bold uppercase tracking-wider px-2 rounded-sm border ${
+                diffColors[data.difficulty]
+              }`}
+            >
+              {data.difficulty}
+            </span>
+          </div>
           <h3
             className={`text-lg font-bold mt-2 ${
               data.isLearned ? "text-slate-400 line-through" : "text-slate-800"

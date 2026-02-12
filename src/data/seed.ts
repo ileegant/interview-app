@@ -8,6 +8,8 @@ export const initialQuestions: IQuestion[] = [
       "Interfaces are primarily for defining object shapes and support declaration merging. Types are more versatile, allowing unions, intersections, and aliases for primitives.",
     difficulty: "medium",
     isLearned: false,
+    category: "Category",
+    subCategory: "Subcategory",
   },
   {
     id: crypto.randomUUID(),
@@ -16,6 +18,8 @@ export const initialQuestions: IQuestion[] = [
       "'any' disables all type checking. 'unknown' is the type-safe counterpart; you cannot perform operations on an 'unknown' value without first narrowing its type.",
     difficulty: "hard",
     isLearned: false,
+    category: "Category",
+    subCategory: "Subcategory",
   },
   {
     id: crypto.randomUUID(),
@@ -24,6 +28,8 @@ export const initialQuestions: IQuestion[] = [
       "Generics allow you to create reusable components that work with a variety of types rather than a single one, providing type safety without losing flexibility.",
     difficulty: "medium",
     isLearned: false,
+    category: "Category",
+    subCategory: "Subcategory",
   },
   {
     id: crypto.randomUUID(),
@@ -32,6 +38,8 @@ export const initialQuestions: IQuestion[] = [
       "It's the process of refining a broader type into a more specific one using conditional blocks (like typeof, instanceof, or custom type guards).",
     difficulty: "easy",
     isLearned: false,
+    category: "Category",
+    subCategory: "Subcategory",
   },
   {
     id: crypto.randomUUID(),
@@ -40,6 +48,8 @@ export const initialQuestions: IQuestion[] = [
       "It makes a property immutable after its initial assignment, preventing any further changes to that specific field.",
     difficulty: "easy",
     isLearned: false,
+    category: "Category",
+    subCategory: "Subcategory",
   },
   {
     id: crypto.randomUUID(),
@@ -48,6 +58,8 @@ export const initialQuestions: IQuestion[] = [
       "Mapped types allow you to create new types based on an existing one by iterating over keys, often used for utility types like Partial<T> or Readonly<T>.",
     difficulty: "hard",
     isLearned: false,
+    category: "Category",
+    subCategory: "Subcategory",
   },
   {
     id: crypto.randomUUID(),
@@ -56,6 +68,8 @@ export const initialQuestions: IQuestion[] = [
       "A tuple is an array with a fixed number of elements where each element has a specifically defined type and order.",
     difficulty: "easy",
     isLearned: false,
+    category: "Category",
+    subCategory: "Subcategory",
   },
   {
     id: crypto.randomUUID(),
@@ -64,5 +78,7 @@ export const initialQuestions: IQuestion[] = [
       "The 'keyof' operator takes an object type and produces a string or numeric literal union of its keys.",
     difficulty: "medium",
     isLearned: false,
+    category: "Category",
+    subCategory: "Subcategory",
   },
 ];
