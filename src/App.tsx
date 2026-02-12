@@ -52,6 +52,10 @@ function App() {
     return () => observer.disconnect();
   }, [filteredQuestions]);
 
+  useEffect(() => {
+    setVisibleCount(10);
+  }, [filterDifficulty, filterStatus]);
+
   const learnedCount = questions.filter((q) => q.isLearned).length;
   const totalCount = questions.length;
   const progress =
