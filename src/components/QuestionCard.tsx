@@ -14,9 +14,9 @@ interface Props {
 
 export const QuestionCard = ({ data, onToggle, onDelete }: Props) => {
   const diffColors = {
-    easy: "bg-emerald-50 text-emerald-700 border-emerald-100",
-    medium: "bg-amber-50 text-amber-700 border-amber-100",
-    hard: "bg-rose-50 text-rose-700 border-rose-100",
+    junior: "bg-emerald-50 text-emerald-700 border-emerald-100",
+    middle: "bg-amber-50 text-amber-700 border-amber-100",
+    senior: "bg-rose-50 text-rose-700 border-rose-100",
   };
 
   return (

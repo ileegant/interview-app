@@ -22,7 +22,7 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
       id: crypto.randomUUID(),
       question: "",
       answer: "",
-      difficulty: "easy",
+      difficulty: "junior",
       category: "",
       subCategory: "",
       isLearned: false,
@@ -81,9 +81,9 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
               {...register("difficulty")}
               className="flex-1 p-3 rounded-lg border border-slate-300 bg-white"
             >
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
+              <option value="junior">Junior</option>
+              <option value="middle">Middle</option>
+              <option value="senior">Senior</option>
             </select>
 
             <button

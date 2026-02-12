@@ -124,7 +124,7 @@ function App() {
           </h1>
           <div className="flex gap-4">
             <div className="flex gap-2">
-              {["all", "easy", "medium", "hard"].map((d) => (
+              {["all", "junior", "middle", "senior"].map((d) => (
                 <button
                   key={d}
                   onClick={() => setFilterDifficulty(d as any)}
