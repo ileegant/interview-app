@@ -2,6 +2,7 @@ import { useState } from "react";
 import { QuestionSchema, type IQuestion } from "../types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Plus, X } from "lucide-react";
 
 interface Props {
   onAdd: (newQuestion: IQuestion) => void;
@@ -44,7 +45,7 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
       <button type="button" onClick={() => setIsFormVisible(!isFormVisible)}>
         <div className="flex justify-between p-6 cursor-pointer">
           <h2 className="text-xl font-bold text-slate-800">Add New Question</h2>
-          {isFormVisible ? "✕" : "+"}
+          {isFormVisible ? <X size={20} /> : <Plus size={20} />}
         </div>
       </button>
 
@@ -89,7 +90,7 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
               type="submit"
               className="flex-2 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 cursor-pointer"
             >
-              Add Question
+              + Add Question
             </button>
           </div>
 
