@@ -3,6 +3,7 @@ import type { IQuestion } from "./types";
 import { QuestionCard } from "./components/QuestionCard";
 import { AddQuestionForm } from "./components/AddQuestionForm";
 import { initialQuestions } from "./data/seed";
+import { Loader, Loader2, LoaderCircle } from "lucide-react";
 
 const LS_KEY = "interview_prep_questions_v1";
 
@@ -194,7 +195,12 @@ function App() {
                 />
               ))
           )}
-          <div ref={observerTarget} className="bottom-sentinel"></div>
+          <div
+            ref={observerTarget}
+            className="bottom-sentinel flex justify-center pt-6"
+          >
+            <Loader2 className="w-8 h-8 text-slate-300 animate-spin" />
+          </div>
         </div>
       </div>
     </div>
