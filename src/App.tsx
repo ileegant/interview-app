@@ -196,7 +196,10 @@ function App() {
               ))
           )}
           {visibleCount >= filteredQuestions.length ? (
-            <div></div>
+            <div className="flex justify-center text-slate-400 pt-6">
+              You reacehd THE END. Stop scrolling and start coding. The Senior
+              position won't grab itself.
+            </div>
           ) : (
             <div
               ref={observerTarget}
