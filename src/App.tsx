@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { IQuestion } from "./types";
 import { QuestionCard } from "./components/QuestionCard";
 import { AddQuestionForm } from "./components/AddQuestionForm";
@@ -21,6 +21,8 @@ function App() {
 
   const [visibleCount, setVisibleCount] = useState(10);
 
+  const observerTarget = useRef(null);
+
   const filteredQuestions = questions.filter((q) => {
     const matchDifficulty =
       filterDifficulty === "all" || q.difficulty === filterDifficulty;
@@ -32,6 +34,23 @@ function App() {
         : !q.isLearned;
     return matchDifficulty && matchStatus;
   });
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setVisibleCount((prev) => prev + 10);
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => observer.disconnect();
+  }, [filteredQuestions]);
 
   const learnedCount = questions.filter((q) => q.isLearned).length;
   const totalCount = questions.length;
@@ -171,6 +190,7 @@ function App() {
                 />
               ))
           )}
+          <div ref={observerTarget} className="bottom-sentinel"></div>
         </div>
       </div>
     </div>
