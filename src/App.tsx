@@ -195,12 +195,16 @@ function App() {
                 />
               ))
           )}
-          <div
-            ref={observerTarget}
-            className="bottom-sentinel flex justify-center pt-6"
-          >
-            <Loader2 className="w-8 h-8 text-slate-300 animate-spin" />
-          </div>
+          {visibleCount >= filteredQuestions.length ? (
+            <div></div>
+          ) : (
+            <div
+              ref={observerTarget}
+              className="bottom-sentinel flex justify-center pt-6"
+            >
+              <Loader2 className="w-8 h-8 text-slate-300 animate-spin" />
+            </div>
+          )}
         </div>
       </div>
     </div>
