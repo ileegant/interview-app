@@ -22,7 +22,6 @@ function App() {
 
   const [visibleCount, setVisibleCount] = useState(10);
 
-  const topObserverTarget = useRef(null);
   const bottomObserverTarget = useRef(null);
 
   const filteredQuestions = questions.filter((q) => {
@@ -49,9 +48,6 @@ function App() {
 
     if (bottomObserverTarget.current) {
       observer.observe(bottomObserverTarget.current);
-    }
-    if (topObserverTarget.current) {
-      observer.observe(topObserverTarget.current);
     }
 
     return () => observer.disconnect();
@@ -179,7 +175,6 @@ function App() {
               <option value="learned">Mastered</option>
             </select>
           </div>
-          <div ref={topObserverTarget} className="top-sentinel h-1"></div>
           {questions.length === 0 || filteredQuestions.length === 0 ? (
             <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-3xl">
               <p className="text-slate-400">
