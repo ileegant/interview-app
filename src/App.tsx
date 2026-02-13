@@ -22,7 +22,8 @@ function App() {
 
   const [visibleCount, setVisibleCount] = useState(10);
 
-  const observerTarget = useRef(null);
+  const topObserverTarget = useRef(null);
+  const bottomObserverTarget = useRef(null);
 
   const filteredQuestions = questions.filter((q) => {
     const matchDifficulty =
@@ -46,8 +47,11 @@ function App() {
       { threshold: 1.0 }
     );
 
-    if (observerTarget.current) {
-      observer.observe(observerTarget.current);
+    if (bottomObserverTarget.current) {
+      observer.observe(bottomObserverTarget.current);
+    }
+    if (topObserverTarget.current) {
+      observer.observe(topObserverTarget.current);
     }
 
     return () => observer.disconnect();
@@ -175,6 +179,7 @@ function App() {
               <option value="learned">Mastered</option>
             </select>
           </div>
+          <div ref={topObserverTarget} className="top-sentinel h-1"></div>
           {questions.length === 0 || filteredQuestions.length === 0 ? (
             <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-3xl">
               <p className="text-slate-400">
@@ -195,19 +200,20 @@ function App() {
                 />
               ))
           )}
-          {visibleCount >= filteredQuestions.length ? (
-            <div className="flex justify-center text-slate-400 pt-6">
-              You reacehd THE END. Stop scrolling and start coding. The Senior
-              position won't grab itself.
-            </div>
-          ) : (
-            <div
-              ref={observerTarget}
-              className="bottom-sentinel flex justify-center pt-6"
-            >
-              <Loader2 className="w-8 h-8 text-slate-300 animate-spin" />
-            </div>
-          )}
+          {filteredQuestions.length > 0 &&
+            (visibleCount >= filteredQuestions.length ? (
+              <div className="flex justify-center text-slate-400 pt-6">
+                You reacehd THE END. Stop scrolling and start coding. The Senior
+                position won't grab itself.
+              </div>
+            ) : (
+              <div
+                ref={bottomObserverTarget}
+                className="bottom-sentinel flex justify-center pt-6"
+              >
+                <Loader2 className="w-8 h-8 text-slate-300 animate-spin" />
+              </div>
+            ))}
         </div>
       </div>
     </div>
