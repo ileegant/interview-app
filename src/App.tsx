@@ -4,6 +4,7 @@ import { QuestionCard } from "./components/QuestionCard";
 import { AddQuestionForm } from "./components/AddQuestionForm";
 import { initialQuestions } from "./data/seed";
 import { Loader2 } from "lucide-react";
+import SearchEngine from "./components/SearchEngine";
 
 const LS_KEY = "interview_prep_questions_v1";
 
@@ -19,6 +20,7 @@ function App() {
   const [filterStatus, setFilterStatus] = useState<
     "all" | "learned" | "to-learn"
   >("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [visibleCount, setVisibleCount] = useState(10);
 
@@ -33,7 +35,10 @@ function App() {
         : filterStatus === "learned"
         ? q.isLearned
         : !q.isLearned;
-    return matchDifficulty && matchStatus;
+    const matchSearch = q.question
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchDifficulty && matchStatus && matchSearch;
   });
 
   useEffect(() => {
@@ -55,7 +60,7 @@ function App() {
 
   useEffect(() => {
     setVisibleCount(10);
-  }, [filterDifficulty, filterStatus]);
+  }, [filterDifficulty, filterStatus, filterStatus]);
 
   const learnedCount = questions.filter((q) => q.isLearned).length;
   const totalCount = questions.length;
@@ -148,6 +153,7 @@ function App() {
             Questions{" "}
             <span className="text-3xl">({filteredQuestions.length})</span>
           </h1>
+          <SearchEngine query={searchQuery} setQuery={setSearchQuery} />
           <div className="flex gap-4">
             <div className="flex gap-2">
               {["all", "junior", "middle", "senior"].map((d) => (
