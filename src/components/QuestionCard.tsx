@@ -5,6 +5,7 @@ import {
   Trash,
 } from "lucide-react";
 import type { IQuestion } from "../types";
+import { MarkdownRenderer } from "./MarkdownRenderer";
 
 interface Props {
   data: IQuestion;
@@ -56,7 +57,7 @@ export const QuestionCard = ({ data, onToggle, onDelete }: Props) => {
             }`}
           >
             <span className="font-semibold text-slate-400 mr-2">A:</span>
-            {data.answer}
+            <MarkdownRenderer content={data.answer} />
           </div>
         </div>
         <div className="flex gap-2 mt-4">
