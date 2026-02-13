@@ -170,15 +170,16 @@ function App() {
                 </button>
               ))}
             </div>
-
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value as any)}
               className="text-xs font-bold text-slate-600 bg-transparent border-none outline-none cursor-pointer hover:text-slate-900 transition-colors"
             >
-              <option value="all">Show All</option>
-              <option value="to-learn">To Learn</option>
-              <option value="learned">Mastered</option>
+              <optgroup label="Status">
+                <option value="all">Show All</option>
+                <option value="to-learn">To Learn</option>
+                <option value="learned">Mastered</option>
+              </optgroup>
             </select>
           </div>
           {questions.length === 0 || filteredQuestions.length === 0 ? (
