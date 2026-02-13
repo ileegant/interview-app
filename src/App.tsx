@@ -35,9 +35,9 @@ function App() {
         : filterStatus === "learned"
         ? q.isLearned
         : !q.isLearned;
-    const matchSearch = q.question
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
+    const searchString =
+      `${q.question} ${q.category} ${q.subCategory}`.toLowerCase();
+    const matchSearch = searchString.includes(searchQuery.toLowerCase());
     return matchDifficulty && matchStatus && matchSearch;
   });
 
