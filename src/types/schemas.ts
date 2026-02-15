@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const QuestionSchema = z.object({
   id: z.uuid(),
-  question: z.string().min(10, "Question is to short!"),
+  question: z.string().min(10, "Question is too short!"),
   answer: z.string().min(20, "Answer is too short!"),
   difficulty: z.enum(["junior", "middle", "senior"]),
   category: z.string().min(1, "Select category"),
