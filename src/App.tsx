@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { IQuestion, TabType } from "./types";
+import type { IQuestion, QuestionStatus, TabType } from "./types";
 import { QuestionCard } from "./components/QuestionCard";
 import { AddQuestionForm } from "./components/AddQuestionForm";
 import { initialQuestions } from "./data/seed";
@@ -7,6 +7,8 @@ import { Loader2 } from "lucide-react";
 import SearchEngine from "./components/SearchEngine";
 import MockInterview from "./components/MockInterview";
 import Tab from "./components/Tab";
+import FilterDifficulty from "./components/FilterDifficulty";
+import FilterStatus from "./components/FilterStatus";
 
 const LS_KEY = "interview_prep_questions_v1";
 
@@ -17,11 +19,11 @@ function App() {
   });
 
   const [filterDifficulty, setFilterDifficulty] = useState<
-    IQuestion["difficulty"] | "all"
+    "all" | IQuestion["difficulty"]
   >("all");
-  const [filterStatus, setFilterStatus] = useState<
-    "all" | "learned" | "to-learn"
-  >("all");
+  const [filterStatus, setFilterStatus] = useState<"all" | QuestionStatus>(
+    "all"
+  );
   const [searchQuery, setSearchQuery] = useState("");
 
   const [visibleCount, setVisibleCount] = useState(10);
@@ -157,40 +159,25 @@ function App() {
             </div>
 
             <AddQuestionForm onAdd={handleAddQuestion} />
+
             <div className="space-y-4 mt-14">
               <h1 className="text-5xl font-bold pb-4">
                 Questions{" "}
                 <span className="text-3xl">({filteredQuestions.length})</span>
               </h1>
               <SearchEngine query={searchQuery} setQuery={setSearchQuery} />
+
               <div className="flex gap-4">
-                <div className="flex gap-2">
-                  {["all", "junior", "middle", "senior"].map((d) => (
-                    <button
-                      key={d}
-                      onClick={() => setFilterDifficulty(d as any)}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold capitalize cursor-pointer ${
-                        filterDifficulty === d
-                          ? "bg-slate-900 text-white shadow-md"
-                          : "text-slate-500 border border-slate-200 hover:border-slate-300"
-                      }`}
-                    >
-                      {d}
-                    </button>
-                  ))}
-                </div>
-                <select
-                  value={filterStatus}
-                  onChange={(e) => setFilterStatus(e.target.value as any)}
-                  className="text-xs font-bold text-slate-600 bg-transparent border-none outline-none cursor-pointer hover:text-slate-900 transition-colors"
-                >
-                  <optgroup label="Status">
-                    <option value="all">Show All</option>
-                    <option value="to-learn">To Learn</option>
-                    <option value="learned">Mastered</option>
-                  </optgroup>
-                </select>
+                <FilterDifficulty
+                  filterDifficulty={filterDifficulty}
+                  setFilterDifficulty={setFilterDifficulty}
+                />
+                <FilterStatus
+                  filterStatus={filterStatus}
+                  setFilterStatus={setFilterStatus}
+                />
               </div>
+
               {questions.length === 0 || filteredQuestions.length === 0 ? (
                 <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-3xl">
                   <p className="text-slate-400">
