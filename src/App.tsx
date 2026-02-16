@@ -13,6 +13,7 @@ import useInfiniteScroll from "./hooks/useInfiniteScroll";
 import ResetActions from "./components/ResetActions";
 import useQuestionsActions from "./hooks/useQuestionsActions";
 import EmptyState from "./components/EmptyState";
+import useFilteredQuestions from "./hooks/useFilteredQuestions";
 
 const MockInterview = lazy(() => import("./components/MockInterview"));
 
@@ -44,19 +45,11 @@ function App() {
 
   const [selectedTab, setSelectedTab] = useState<TabType>("questions");
 
-  const filteredQuestions = questions.filter((q) => {
-    const matchDifficulty =
-      filterDifficulty === "all" || q.difficulty === filterDifficulty;
-    const matchStatus =
-      filterStatus === "all"
-        ? true
-        : filterStatus === "learned"
-        ? q.isLearned
-        : !q.isLearned;
-    const searchString =
-      `${q.question} ${q.category} ${q.subCategory}`.toLowerCase();
-    const matchSearch = searchString.includes(searchQuery.toLowerCase());
-    return matchDifficulty && matchStatus && matchSearch;
+  const filteredQuestions = useFilteredQuestions({
+    questions,
+    searchQuery,
+    filterDifficulty,
+    filterStatus,
   });
 
   const isQuestionsEmpty = questions.length === 0;
