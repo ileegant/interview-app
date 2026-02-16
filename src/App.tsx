@@ -1,16 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import type { IQuestion, QuestionStatus, TabType } from "./types";
 import { QuestionCard } from "./components/QuestionCard";
 import { AddQuestionForm } from "./components/AddQuestionForm";
 import { initialQuestions } from "./data/seed";
 import SearchEngine from "./components/SearchEngine";
-import MockInterview from "./components/MockInterview";
 import Tab from "./components/Tab";
 import FilterDifficulty from "./components/FilterDifficulty";
 import FilterStatus from "./components/FilterStatus";
 import LearningStats from "./components/LearningStats";
 import InfiniteScrollFooter from "./components/InfiniteScrollFooter";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
+
+const MockInterview = lazy(() => import("./components/MockInterview"));
 
 const LS_KEY = "interview_prep_questions_v1";
 
@@ -115,7 +116,9 @@ function App() {
         </div>
 
         {selectedTab === "quiz" ? (
-          <MockInterview />
+          <Suspense fallback={<div>Loading...</div>}>
+            <MockInterview />
+          </Suspense>
         ) : (
           <>
             <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
