@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { IQuestion, QuestionStatus, TabType } from "./types";
 import { QuestionCard } from "./components/QuestionCard";
 import { AddQuestionForm } from "./components/AddQuestionForm";
@@ -10,6 +10,7 @@ import FilterDifficulty from "./components/FilterDifficulty";
 import FilterStatus from "./components/FilterStatus";
 import LearningStats from "./components/LearningStats";
 import InfiniteScrollFooter from "./components/InfiniteScrollFooter";
+import useInfiniteScroll from "./hooks/useInfiniteScroll";
 
 const LS_KEY = "interview_prep_questions_v1";
 
@@ -28,8 +29,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const [visibleCount, setVisibleCount] = useState(10);
-
-  const bottomObserverTarget = useRef(null);
 
   const [selectedTab, setSelectedTab] = useState<TabType>("questions");
 
@@ -52,31 +51,16 @@ function App() {
   const showFooter = filteredQuestions.length > 0;
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !isEndReached) {
-          setVisibleCount((prev) => prev + 10);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const currentTarget = bottomObserverTarget.current;
-    if (currentTarget) {
-      observer.observe(currentTarget);
-    }
-
-    return () => {
-      if (currentTarget) observer.unobserve(currentTarget);
-    };
-  }, [isEndReached]);
-
-  useEffect(() => {
     setVisibleCount(10);
   }, [filterDifficulty, filterStatus, searchQuery]);
 
   const learnedCount = questions.filter((q) => q.isLearned).length;
   const totalCount = questions.length;
+
+  const loaderRef = useInfiniteScroll({
+    incrementVisibleCount: () => setVisibleCount((prev) => prev + 10),
+    isEndReached,
+  });
 
   useEffect(() => {
     localStorage.setItem(LS_KEY, JSON.stringify(questions));
@@ -196,7 +180,7 @@ function App() {
                   ))
               )}
               <InfiniteScrollFooter
-                ref={bottomObserverTarget}
+                ref={loaderRef}
                 isVisible={showFooter}
                 isEndReached={isEndReached}
               />
