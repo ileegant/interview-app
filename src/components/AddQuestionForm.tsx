@@ -18,6 +18,7 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
     formState: { errors },
   } = useForm<IQuestion>({
     resolver: zodResolver(QuestionSchema),
+    mode: "onBlur",
     defaultValues: {
       id: crypto.randomUUID(),
       question: "",
@@ -56,24 +57,40 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
             className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="Question text..."
           />
+          {errors.question && (
+            <p className="text-red-500">{errors.question.message}</p>
+          )}
 
           <textarea
             {...register("answer")}
             className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none min-h-25"
             placeholder="Answer..."
           />
+          {errors.answer && (
+            <p className="text-red-500">{errors.answer.message}</p>
+          )}
 
           <div className="flex gap-4">
-            <input
-              {...register("category")}
-              className="flex-1 p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Category (React, TS)"
-            />
-            <input
-              {...register("subCategory")}
-              className="flex-1 p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Subcategory..."
-            />
+            <div className="flex flex-1 flex-col">
+              <input
+                {...register("category")}
+                className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
+                placeholder="Category (React, TS)"
+              />
+              {errors.category && (
+                <p className="text-red-500">{errors.category.message}</p>
+              )}
+            </div>
+            <div className="flex flex-1 flex-col">
+              <input
+                {...register("subCategory")}
+                className="p-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-500 outline-none"
+                placeholder="Subcategory..."
+              />
+              {errors.subCategory && (
+                <p className="text-red-500">{errors.subCategory.message}</p>
+              )}
+            </div>
           </div>
 
           <div className="flex gap-4">
@@ -86,6 +103,10 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
               <option value="senior">Senior</option>
             </select>
 
+            {errors.difficulty && (
+              <p className="text-red-500">{errors.difficulty.message}</p>
+            )}
+
             <button
               type="submit"
               className="flex-2 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 cursor-pointer"
@@ -95,16 +116,10 @@ export const AddQuestionForm = ({ onAdd }: Props) => {
           </div>
 
           <div className="flex justify-center pt-2">
-            {Object.keys(errors).length > 0 ? (
-              <p className="text-rose-500 text-sm font-medium">
-                {Object.keys(errors)[0]}
-              </p>
-            ) : (
-              <p className="text-slate-400 text-sm">
-                Tip: Don't just memorize. Try to explain the concept out loud in
-                your own words.
-              </p>
-            )}
+            <p className="text-slate-400 text-sm">
+              Tip: Don't just memorize. Try to explain the concept out loud in
+              your own words.
+            </p>
           </div>
         </div>
       )}
