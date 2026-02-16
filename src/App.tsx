@@ -10,6 +10,8 @@ import FilterStatus from "./components/FilterStatus";
 import LearningStats from "./components/LearningStats";
 import InfiniteScrollFooter from "./components/InfiniteScrollFooter";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
+import ResetActions from "./components/ResetActions";
+import useQuestionsActions from "./hooks/useQuestionsActions";
 
 const MockInterview = lazy(() => import("./components/MockInterview"));
 
@@ -20,6 +22,14 @@ function App() {
     const saved = localStorage.getItem(LS_KEY);
     return saved ? JSON.parse(saved) : initialQuestions;
   });
+
+  const {
+    handleAddQuestion,
+    toggleStatus,
+    deleteQuestion,
+    resetToSeed,
+    resetProgress,
+  } = useQuestionsActions({ setQuestions });
 
   const [filterDifficulty, setFilterDifficulty] = useState<
     "all" | IQuestion["difficulty"]
@@ -67,40 +77,6 @@ function App() {
     localStorage.setItem(LS_KEY, JSON.stringify(questions));
   }, [questions]);
 
-  const handleAddQuestion = (newQuestion: IQuestion) => {
-    setQuestions((prev) => [newQuestion, ...prev]);
-  };
-
-  const toggleStatus = (id: string) => {
-    setQuestions((prev) =>
-      prev.map((q) => (q.id === id ? { ...q, isLearned: !q.isLearned } : q))
-    );
-  };
-
-  const deleteQuestion = (id: string) => {
-    if (window.confirm("Delete this question?")) {
-      setQuestions((prev) => prev.filter((q) => q.id !== id));
-    }
-  };
-
-  const resetToSeed = () => {
-    if (
-      window.confirm(
-        "Reset all questions to default? Your questions will be lost."
-      )
-    ) {
-      setQuestions(initialQuestions);
-    }
-  };
-
-  const resetProgress = () => {
-    if (
-      window.confirm("Reset all progress? Your current progress will be lost.")
-    ) {
-      setQuestions((prev) => prev.map((q) => ({ ...q, isLearned: false })));
-    }
-  };
-
   return (
     <div className="min-h-screen bg-slate-50 py-12 px-4">
       <div className="max-w-4xl mx-auto">
@@ -126,20 +102,10 @@ function App() {
                 learnedCount={learnedCount}
                 totalCount={totalCount}
               />
-              <div className="flex items-center justify-center gap-4 mt-4">
-                <button
-                  onClick={resetProgress}
-                  className="text-xs text-rose-300 hover:text-rose-500 underline cursor-pointer"
-                >
-                  Reset progress
-                </button>
-                <button
-                  onClick={resetToSeed}
-                  className="text-xs text-rose-300 hover:text-rose-500 underline cursor-pointer"
-                >
-                  Reset to default questions
-                </button>
-              </div>
+              <ResetActions
+                onResetProgress={resetProgress}
+                onResetToSeed={resetToSeed}
+              />
             </div>
 
             <AddQuestionForm onAdd={handleAddQuestion} />
