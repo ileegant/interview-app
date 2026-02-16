@@ -56,8 +56,10 @@ export const QuestionCard = ({ data, onToggle, onDelete }: Props) => {
               data.isLearned && "opacity-50"
             }`}
           >
-            <span className="font-semibold text-slate-400 mr-2">A:</span>
-            <MarkdownRenderer content={data.answer} />
+            <div className="flex">
+              <span className="font-semibold text-slate-400 mr-2">A:</span>
+              <MarkdownRenderer content={data.answer} />
+            </div>
           </div>
         </div>
         <div className="flex gap-2 mt-4">
