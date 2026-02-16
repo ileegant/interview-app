@@ -3,13 +3,13 @@ import type { IQuestion, QuestionStatus, TabType } from "./types";
 import { QuestionCard } from "./components/QuestionCard";
 import { AddQuestionForm } from "./components/AddQuestionForm";
 import { initialQuestions } from "./data/seed";
-import { Loader2 } from "lucide-react";
 import SearchEngine from "./components/SearchEngine";
 import MockInterview from "./components/MockInterview";
 import Tab from "./components/Tab";
 import FilterDifficulty from "./components/FilterDifficulty";
 import FilterStatus from "./components/FilterStatus";
 import LearningStats from "./components/LearningStats";
+import InfiniteScrollFooter from "./components/InfiniteScrollFooter";
 
 const LS_KEY = "interview_prep_questions_v1";
 
@@ -48,22 +48,28 @@ function App() {
     return matchDifficulty && matchStatus && matchSearch;
   });
 
+  const isEndReached = visibleCount >= filteredQuestions.length;
+  const showFooter = filteredQuestions.length > 0;
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting) {
+        if (entries[0].isIntersecting && !isEndReached) {
           setVisibleCount((prev) => prev + 10);
         }
       },
-      { threshold: 1.0 }
+      { threshold: 0.1 }
     );
 
-    if (bottomObserverTarget.current) {
-      observer.observe(bottomObserverTarget.current);
+    const currentTarget = bottomObserverTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
     }
 
-    return () => observer.disconnect();
-  }, [filteredQuestions]);
+    return () => {
+      if (currentTarget) observer.unobserve(currentTarget);
+    };
+  }, [isEndReached]);
 
   useEffect(() => {
     setVisibleCount(10);
@@ -189,20 +195,11 @@ function App() {
                     />
                   ))
               )}
-              {filteredQuestions.length > 0 &&
-                (visibleCount >= filteredQuestions.length ? (
-                  <div className="flex justify-center text-slate-400 pt-6">
-                    You reacehd THE END. Stop scrolling and start coding. The
-                    Senior position won't grab itself.
-                  </div>
-                ) : (
-                  <div
-                    ref={bottomObserverTarget}
-                    className="bottom-sentinel flex justify-center pt-6"
-                  >
-                    <Loader2 className="w-8 h-8 text-slate-300 animate-spin" />
-                  </div>
-                ))}
+              <InfiniteScrollFooter
+                ref={bottomObserverTarget}
+                isVisible={showFooter}
+                isEndReached={isEndReached}
+              />
             </div>
           </>
         )}
