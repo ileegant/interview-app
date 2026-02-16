@@ -9,6 +9,7 @@ import MockInterview from "./components/MockInterview";
 import Tab from "./components/Tab";
 import FilterDifficulty from "./components/FilterDifficulty";
 import FilterStatus from "./components/FilterStatus";
+import LearningStats from "./components/LearningStats";
 
 const LS_KEY = "interview_prep_questions_v1";
 
@@ -66,12 +67,10 @@ function App() {
 
   useEffect(() => {
     setVisibleCount(10);
-  }, [filterDifficulty, filterStatus, filterStatus]);
+  }, [filterDifficulty, filterStatus, searchQuery]);
 
   const learnedCount = questions.filter((q) => q.isLearned).length;
   const totalCount = questions.length;
-  const progress =
-    totalCount > 0 ? Math.round((learnedCount / totalCount) * 100) : 0;
 
   useEffect(() => {
     localStorage.setItem(LS_KEY, JSON.stringify(questions));
@@ -130,18 +129,10 @@ function App() {
         ) : (
           <>
             <div className="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
-              <div className="flex justify-between mb-2 text-sm font-medium text-slate-600">
-                <span>Learning Progress:</span>
-                <span>
-                  {progress}% ({learnedCount}/{totalCount})
-                </span>
-              </div>
-              <div className="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
-                <div
-                  className="bg-blue-600 h-full transition-all duration-500 ease-out"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
+              <LearningStats
+                learnedCount={learnedCount}
+                totalCount={totalCount}
+              />
               <div className="flex items-center justify-center gap-4 mt-4">
                 <button
                   onClick={resetProgress}
