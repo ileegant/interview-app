@@ -12,6 +12,7 @@ import InfiniteScrollFooter from "./components/InfiniteScrollFooter";
 import useInfiniteScroll from "./hooks/useInfiniteScroll";
 import ResetActions from "./components/ResetActions";
 import useQuestionsActions from "./hooks/useQuestionsActions";
+import EmptyState from "./components/EmptyState";
 
 const MockInterview = lazy(() => import("./components/MockInterview"));
 
@@ -57,6 +58,8 @@ function App() {
     const matchSearch = searchString.includes(searchQuery.toLowerCase());
     return matchDifficulty && matchStatus && matchSearch;
   });
+
+  const isQuestionsEmpty = questions.length === 0;
 
   const isEndReached = visibleCount >= filteredQuestions.length;
   const showFooter = filteredQuestions.length > 0;
@@ -128,14 +131,14 @@ function App() {
                 />
               </div>
 
-              {questions.length === 0 || filteredQuestions.length === 0 ? (
-                <div className="text-center py-20 border-2 border-dashed border-slate-200 rounded-3xl">
-                  <p className="text-slate-400">
-                    {questions.length === 0
+              {isQuestionsEmpty || filteredQuestions.length === 0 ? (
+                <EmptyState
+                  message={
+                    isQuestionsEmpty
                       ? "It's empty here. Time to add your first question!"
-                      : "No questions match your filters. Try adjusting them!"}
-                  </p>
-                </div>
+                      : "No questions match your filters. Try adjusting them!"
+                  }
+                />
               ) : (
                 filteredQuestions
                   .slice(0, visibleCount)
