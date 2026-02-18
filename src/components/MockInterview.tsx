@@ -30,6 +30,7 @@ export default function MockInterview() {
       <button onClick={() => setIsTimerRun(!isTimerRun)}>
         {isTimerRun ? "Pause" : "Run Timer"}
       </button>
+      <p>Add 5 random questions</p>
     </>
   );
 }
